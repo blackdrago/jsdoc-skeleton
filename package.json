@@ -1,0 +1,27 @@
+{
+    "name": "jsdoc-skeleton",
+    "version": "0.0.0",
+    "authors": [
+        {
+            "name": "K. McCormick",
+            "email": "kyliemccormick@gmail.com",
+            "role": "engineer"
+        }
+    ],
+    "description": "Skeleton for custom JSDoc templates.",
+    "license": "MIT",
+    "main": "publish.js",
+    "keywords": [
+        "jsdoc",
+        "jsdoc3",
+        "jsdoc-template",
+        "template",
+        "skeleton"
+    ],
+    "dependencies": {
+        "jsdoc": "^3.6.2",
+        "node-sass": "^4.12.0",
+        "webpack": "^4.35.3",
+        "webpack-cli": "^3.3.5"
+    }
+}
