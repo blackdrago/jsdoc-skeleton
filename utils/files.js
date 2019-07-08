@@ -66,7 +66,7 @@ module.exports = {
      *                  Given an existing directory, collect all the files within,
      *                  including files that are in subdirectories of the given directory.
      *              </p>
-     * @param       {string} dir
+     * @param       {string}  dir
      * @return      {Array}
      */
     allFilePaths: function(dir)
@@ -111,7 +111,7 @@ module.exports = {
             var path = module.exports.generateFilePath(dir, file);
             if (fs.statSync(path).isDirectory()) {
                 dirpaths.push(path);
-                var subdir = module.exports.allDirPaths(path);
+                var subdir = module.exports.allDirPaths(path, false);
                 subdir.forEach(function (dirpath) {
                     dirpaths.push(dirpath);
                 });
@@ -132,16 +132,11 @@ module.exports = {
      */
     copyAllFiles: function(existingDir, targetDir)
     {
-        // start by ensuring all the requisite directory paths exist
-        var dirs  = module.exports.allDirPaths(existingDir);
-        dirs.forEach(function(dir) {
-            var newDir = dir.replace(existingDir, targetDir);
-            module.exports.createDirectory(newDir);
-        });
         var files = module.exports.allFilePaths(existingDir);
         files.forEach(function (filepath) {
             var newpath = filepath.replace(existingDir, targetDir);
             var newdir = fs.toDir(newpath);
+            module.exports.createDirectory(newdir);
             fs.copyFileSync(filepath, newdir);
         });
     },       

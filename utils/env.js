@@ -6,8 +6,68 @@
  * @namespace   envUtils
  */
 var env = require('jsdoc/env');
+var path = require('path');
 
 module.exports = {
+    /**
+     * @memberof    envUtils
+     * @function    primaryLayoutFile
+     * @description <p>
+     *                  Return the primary layout.
+     *              </p>
+     * @return      {string}
+     */
+    primaryLayoutFile: function()
+    {
+        var keys = ['default', 'layoutFile'];
+        if (module.exports.confkeyExists(keys)) {
+            var pathname = module.exports.getConfSetting(keys);
+            return path.getResourcePath(
+                path.dirname(pathname),
+                path.basename(pathname)
+            );
+        }
+        return 'layout.tmpl';
+    },
+    /**
+     * @memberof    envUtils
+     * @function    staticDirs
+     * @description <p>
+     *                  Return an array of one or more static directories.
+     *              </p>
+     * @return      {array}
+     */
+    staticDirs: function()
+    {
+        var keys1 = [ 'templates', 'default', 'staticFiles', 'include' ];
+        var keys2 = [ 'templates', 'default', 'staticFiles', 'paths' ];
+        var dirs = new Array();
+        if (module.exports.confkeyExists(keys1)) {
+            var dirpaths = module.exports.getConfSetting(keys1);
+            for(var d in dirpaths) {
+                dirs.push(dirpaths[d]);
+            }
+        }
+        if (module.exports.confkeyExists(keys2)) {
+            var dirpaths = module.exports.getConfSetting(keys2);
+            for(var d in dirpaths) {
+                dirs.push(dirpaths[d]);
+            }
+        }
+        return dirs;
+    },
+    /**
+     * @memberof    envUtils
+     * @function    templatePath
+     * @description <p>
+     *                  Return the assigned template path.
+     *              </p>
+     * @return      {string}
+     */
+    templatePath: function()
+    {
+        return path.normalize(module.exports.getSetting('template'));
+    },
     /**
      * @memberof    envUtils
      * @function    scopeExists

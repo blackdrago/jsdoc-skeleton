@@ -1,5 +1,5 @@
 /**
- * @namespace  exports
+ * @namespace  jsdoc-skeleton
  * @description <p>
  *                  //
  *              </p>
@@ -14,7 +14,7 @@ var textUtils = require('./utils/text');
 var fileUtils = require('./utils/files');
 
 /**
- * @memberof    exports
+ * @memberof    jsdoc-skeleton
  * @function    publish
  * @description <p>
  *                  //
