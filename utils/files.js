@@ -140,4 +140,17 @@ module.exports = {
             fs.copyFileSync(filepath, newdir);
         });
     },       
+    /**
+     * @memberof    fileUtils
+     * @function    getFilePathFromDoclet
+     * @description <p>
+     *                  
+     *              </p>
+     * @param       {string} existingDir
+     * @param       {string} targetDir
+     */
+    getFilePathFromDoclet: function(existingDir, targetDir)
+    {
+        //
+    },       
 }

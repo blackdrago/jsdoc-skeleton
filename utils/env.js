@@ -11,9 +11,46 @@ var path = require('path');
 module.exports = {
     /**
      * @memberof    envUtils
+     * @function    baseDir
+     * @description <p>
+     *                  Return the base directory of this template.
+     *              </p>
+     * @return      {string}
+     */
+    baseDir: function()
+    {
+        return path.normalize(module.exports.getSetting('template'));
+    },
+    /**
+     * @memberof    envUtils
+     * @function    customDir
+     * @description <p>
+     *                  Return the custom directory of this template.
+     *              </p>
+     * @return      {string}
+     */
+    customDir: function()
+    {
+        return path.join(module.exports.baseDir(), 'custom');
+    },
+    /**
+     * @memberof    envUtils
+     * @function    outDir
+     * @description <p>
+     *                  Return the output directory for this template.
+     *              </p>
+     * @return      {string}
+     */
+    outDir: function()
+    {
+        return path.normalize(module.exports.getSetting('destination'));
+    },
+    /**
+     * @memberof    envUtils
      * @function    primaryLayoutFile
      * @description <p>
-     *                  Return the primary layout.
+     *                  Return the primary layout as defined in the configuration
+     *                  setting: conf.default.layoutFile
      *              </p>
      * @return      {string}
      */
@@ -21,6 +58,7 @@ module.exports = {
     {
         var keys = ['default', 'layoutFile'];
         if (module.exports.confkeyExists(keys)) {
+            // since this is a configuration setting, don't check for a custom version
             var pathname = module.exports.getConfSetting(keys);
             return path.getResourcePath(
                 path.dirname(pathname),

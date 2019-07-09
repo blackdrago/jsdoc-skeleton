@@ -1,0 +1,13 @@
+# gitignore for JSDOC skeleton
+
+# ignore the custom and custom/tmpl files - but not the directories themselves
+custom/*
+!custom/.gitkeep
+!custom/tmpl/.gitkeep
+
+### npm-related  ###
+node_modules/
+npm-debug.log
+
+### Eclipse-related ###
+.buildpath
