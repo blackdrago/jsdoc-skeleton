@@ -216,14 +216,21 @@ module.exports = {
      * @function    getConfSetting
      * @description <p>
      *                  Given a structured array for a config setting key, return the value.
+     *                  If a second parameter is passed, it will act as the default value
+     *                  for the requested setting. This value will <strong>only</strong>
+     *                  be returned if this function would otherwise return null.
      *              </p>
      * @param       {Array}      keys
+     * @param       {mixed}      defaultValue (optional) only returned if setting is null
      * @return      {mixed|null}
      */
-    getConfSetting: function(keys)
+    getConfSetting: function(keys, defaultValue)
     {
+        if (typeof defaultValue == 'undefined') {
+            defaultValue = null;
+        }
         if (!module.exports.confkeyExists(keys)) {
-            return null;
+            return defaultValue;
         }
         var keyhole = env.conf;
         for(var k in keys) {

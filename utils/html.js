@@ -32,6 +32,24 @@ module.exports = {
     },
     /**
      * @memberof    htmlUtils
+     * @function    tutorialLink
+     * @description <p>
+     *                  Given a tutorial object, return the associated tutorial link.
+     *              </p>
+     * @param       {object} tutorial
+     * @return      {string}
+     */
+    tutorialLink: function(tutorial)
+    {
+        // TODO: double check the 'disbled' classname thing)
+        return templateHelper.toTutorial(tutorial, null, {
+            tag: 'em', 
+            classname: 'disabled', 
+            prefix: 'Tutorial: '
+        });
+    },
+    /**
+     * @memberof    htmlUtils
      * @function    htmlsafe
      * @description <p>
      *                  Return an HTML-safe string (safe for using as an attribute name).
