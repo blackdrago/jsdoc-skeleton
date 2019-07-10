@@ -5,6 +5,7 @@
  * @author      K. McCormick <https://github.com/blackdrago>
  * @namespace   textUtils
  */
+var util = require('util');
 
 module.exports = {
     /**

@@ -139,18 +139,64 @@ module.exports = {
             module.exports.createDirectory(newdir);
             fs.copyFileSync(filepath, newdir);
         });
+    },
+    /**
+     * @memberof    fileUtils
+     * @function    enforceForwardSlashesOnly
+     * @description <p>
+     *                  Given a filepath, ensure that only forward-slashes (/) are used.
+     *              </p>
+     *              <p>
+     *                  <strong>Note</strong>: This function replaces <em>all</em> instances
+     *                  of backslash (\) with a forward-slash (/).
+     *              </p>
+     * @param       {string} filepath
+     * @return      {string} filepath
+     */
+    enforceForwardSlashesOnly: function(filepath)
+    {
+        return filepath.replace(/\\/g, '/');
     },       
     /**
      * @memberof    fileUtils
-     * @function    getFilePathFromDoclet
+     * @function    makePathRelative
      * @description <p>
-     *                  
+     *                  Given a filepath and a common prefix, shorten the filepath so that
+     *                  is acts as a relative path instead of a full system path.
      *              </p>
-     * @param       {string} existingDir
-     * @param       {string} targetDir
+     * @param       {string} filepath
+     * @param       {string} prefix
+     * @return      {string}
      */
-    getFilePathFromDoclet: function(existingDir, targetDir)
+    makePathRelative: function(filepath, prefix)
     {
-        //
-    },       
+        if (filepath.startsWith(prefix)) {
+            return filepath.replace('prefix', '');
+        }
+        return filepath;
+    },
+    /**
+     * @memberof    fileUtils
+     * @function    mapRelativePaths
+     * @description <p>
+     *                  Given an array of objects that contact a 'fullPath' property and
+     *                  a common prefix for those filepaths, iterate over the objects
+     *                  and assign a value to the 'relativePath' property of the object.
+     *              </p>
+     *              <p>
+     *                  <strong>Note</strong>: In some cases, the assigned relativePath
+     *                  will be identical to the fullPath.
+     *              </p>
+     * @param       {array}  filepaths
+     * @param       {string} prefix
+     * @return      {array}
+     */
+    mapRelativePaths: function(filepaths, prefix)
+    {
+        for (var f in filepaths) {
+            var relpath = module.exports.makePathRelative(filepaths[f].fullPath);
+            filepaths[f].relativePath = module.exports.enforceForwardSlashesOnly(relpath);
+        }
+        return filepaths;
+    },
 }
